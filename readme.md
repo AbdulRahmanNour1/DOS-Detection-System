@@ -164,10 +164,9 @@ state = {
     "udp_dst_ports": set(),
 }
 
-history = defaultdict(lambda: deque(maxlen=HIST))  # feature -> deque
+history = defaultdict(lambda: deque(maxlen=HIST)) 
 
 def shannon_entropy(values):
-    # values is a list of items, returns entropy in bits
     if not values:
         return 0.0
     counts = defaultdict(int)
@@ -212,7 +211,6 @@ def finalize_bucket():
         ("syn_ack_ratio", syn_ack_ratio), ("unique_src", unique_src),
         ("udp_ports", udp_ports), ("src_entropy", src_entropy)
     ]: push_feature(k, v)
-    # Rules (mix hard + adaptive)
     alerts = []
     # SYN flood: high SYN rate and low SYN/ACK ratio
     if syn_rate > 2000 or (syn_rate > 500 and syn_ack_ratio < 0.3):
